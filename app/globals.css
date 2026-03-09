@@ -1,26 +1,253 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── Base ── */
+  --background:     #080707;
+  --background-alt: #0d0b12;   /* subtle variation for sections */
+  --surface:        #13101c;
+  --surface-raised: #1a1528;   /* cards, popovers */
+  --surface-overlay:rgba(19, 16, 28, 0.85); /* modals / backdrops */
+
+  /* ── Violet scale ── */
+  --violet-900: #2e1065;
+  --violet-800: #4c1d95;
+  --violet-700: #5b21b6;
+  --violet-600: #7c3aed;
+  --violet-500: #8b5cf6;
+  --violet-400: #a78bfa;
+  --violet-300: #c4b5fd;
+  --violet-200: #ddd6fe;
+
+  /* ── Semantic tokens ── */
+  --primary:        var(--violet-500);
+  --primary-hover:  var(--violet-400);
+  --primary-muted:  rgba(139, 92, 246, 0.15);
+  --primary-glow:   rgba(139, 92, 246, 0.30);
+
+  --secondary:      #9885c0;
+  --secondary-hover:#b8a8d8;
+
+  /* ── Text ── */
+  --foreground:     #f0ebff;
+  --muted:          #9885c0;
+  --muted-subtle:   #5c4f78;
+  --on-primary:     #ffffff;
+
+  /* ── Borders ── */
+  --border:         #2a2140;
+  --border-muted:   rgba(42, 33, 64, 0.6);
+  --border-accent:  rgba(139, 92, 246, 0.35);
+  --border-accent-strong: rgba(139, 92, 246, 0.65);
+
+  /* ── Cards ── */
+  --card-background: rgba(139, 92, 246, 0.07);
+  --card-border:     1px solid var(--border);
+  --card-border-hover: 1px solid var(--violet-600);
+  --card-shadow-hover: 0 4px 32px var(--primary-glow);
+  --card-radius:     16px;
+
+  /* ── Gradients ── */
+  --gradient-primary: linear-gradient(135deg, var(--violet-600), var(--violet-400));
+  --gradient-surface: linear-gradient(135deg, rgba(139,92,246,0.08) 0%, transparent 60%);
+  --gradient-glow:    radial-gradient(ellipse at top left, rgba(139,92,246,0.18), transparent 65%);
+  --gradient-line:    linear-gradient(180deg, var(--violet-600) 0%, transparent 100%);
+
+  /* ── Fonts ── */
+  --font-sans:    var(--font-geist-sans);
+  --font-mono:    var(--font-geist-mono);
+  --font-display: 'Syne', sans-serif;  /* headings */
+
+  /* ── Spacing / Shape ── */
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-xl:  24px;
+  --radius-full: 9999px;
+
+  /* ── Transitions ── */
+  --transition-fast:   150ms ease;
+  --transition-base:   250ms ease;
+  --transition-slow:   400ms cubic-bezier(.22,.68,0,1.2);
 }
 
+/* ── Tailwind theme mapping ── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background:       var(--background);
+  --color-background-alt:   var(--background-alt);
+  --color-surface:          var(--surface);
+  --color-surface-raised:   var(--surface-raised);
+
+  --color-primary:          var(--primary);
+  --color-primary-hover:    var(--primary-hover);
+  --color-primary-muted:    var(--primary-muted);
+  --color-primary-glow:     var(--primary-glow);
+
+  --color-secondary:        var(--secondary);
+  --color-secondary-hover:  var(--secondary-hover);
+
+  --color-foreground:       var(--foreground);
+  --color-muted:            var(--muted);
+  --color-muted-subtle:     var(--muted-subtle);
+
+  --color-border:           var(--border);
+  --color-border-accent:    var(--border-accent);
+
+  --color-card-background:  var(--card-background);
+
+  --font-display:           var(--font-display);
+
+  --radius-sm:   var(--radius-sm);
+  --radius-md:   var(--radius-md);
+  --radius-lg:   var(--radius-lg);
+  --radius-xl:   var(--radius-xl);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--violet-700); }
+
+/* ── Selection ── */
+::selection {
+  background: var(--primary-muted);
+  color: var(--violet-200);
+}
+
+/* ── Focus ring ── */
+:focus-visible {
+  outline: 2px solid var(--violet-500);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 12px var(--primary-glow); }
+  50%       { box-shadow: 0 0 28px var(--primary-glow); }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% center; }
+  to   { background-position:  200% center; }
+}
+
+/* ── Utility classes ── */
+.animate-fadeUp {
+  opacity: 0;
+  animation: fadeUp 0.55s cubic-bezier(.22,.68,0,1.2) forwards;
+}
+
+.animate-fadeIn {
+  opacity: 0;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────
+   Scroll-triggered zoom-in suave
+   Agregar en globals.css (debajo de tus @keyframes existentes)
+   ───────────────────────────────────────────── */
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/**
+ * Estado inicial: invisible y ligeramente achicado.
+ * Cuando el hook agrega ".in-view", se dispara la animación.
+ */
+.scroll-section {
+  opacity: 0;
+  transform: scale(0.94) translateY(16px);
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 0.68, 0, 1.2),
+    transform 0.55s cubic-bezier(0.22, 0.68, 0, 1.2);
+  will-change: opacity, transform;
+}
+
+.scroll-section.in-view {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* stagger helpers */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* gradient text */
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* shimmer text (for loading states) */
+.text-shimmer {
+  background: linear-gradient(90deg,
+    var(--muted-subtle) 25%,
+    var(--violet-400) 50%,
+    var(--muted-subtle) 75%
+  ) 200% center / 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 2s linear infinite;
+}
+
+/* surface card base */
+.card {
+  background: var(--surface);
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.card:hover {
+  border: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* violet glow background for badges / icons */
+.glow-bg {
+  background: var(--gradient-primary);
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+
+.bg-gradient-line {
+  background: var(--gradient-line);
 }
