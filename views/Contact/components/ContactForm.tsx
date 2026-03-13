@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { contactSchema } from "@/common/lib/contact-schema";
+import { useTranslations } from "@/common/context/translation-context";
 
 export function ContactForm() {
   const [form, setForm] = useState({
@@ -14,8 +15,10 @@ export function ContactForm() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const { t } = useTranslations();
+
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) =>
     setForm((prev) => ({
       ...prev,
@@ -69,34 +72,34 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="card p-7 flex flex-col gap-5">
       <p className="text-sm font-semibold text-foreground">
-        Send me a message
+        {t.contact.form.heading}
       </p>
 
       <Input
-        label="Name"
+        label={t.contact.form.name}
         name="name"
         value={form.name}
         onChange={handleChange}
-        placeholder="John Doe"
+        placeholder={t.contact.form.namePlaceholder}
         error={errors.name}
       />
 
       <Input
-        label="Email"
+        label={t.contact.form.email}
         name="email"
         type="email"
         value={form.email}
         onChange={handleChange}
-        placeholder="hello@example.com"
+        placeholder={t.contact.form.emailPlaceholder}
         error={errors.email}
       />
 
       <Textarea
-        label="Message"
+        label={t.contact.form.message}
         name="message"
         value={form.message}
         onChange={handleChange}
-        placeholder="Tell me about your project..."
+        placeholder={t.contact.form.messagePlaceholder}
         error={errors.message}
       />
 
@@ -104,7 +107,11 @@ export function ContactForm() {
         disabled={loading || sent}
         className="w-full rounded-xl bg-primary py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-primary-hover hover:shadow-[0_0_24px_var(--primary-glow)] disabled:opacity-60"
       >
-        {loading ? "Sending..." : sent ? "Message Sent ✓" : "Send Message"}
+        {loading
+          ? t.contact.form.sending
+          : sent
+            ? t.contact.form.sent
+            : t.contact.form.send}  
       </button>
     </form>
   );
@@ -129,11 +136,7 @@ function Input({
         className="w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-subtle outline-none transition-all focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-muted)]"
       />
 
-      {error && (
-        <span className="text-xs text-red-400">
-          {error}
-        </span>
-      )}
+      {error && <span className="text-xs text-red-400">{error}</span>}
     </div>
   );
 }
@@ -158,11 +161,7 @@ function Textarea({
         className="w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-subtle outline-none transition-all focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-muted)] resize-none"
       />
 
-      {error && (
-        <span className="text-xs text-red-400">
-          {error}
-        </span>
-      )}
+      {error && <span className="text-xs text-red-400">{error}</span>}
     </div>
   );
 }

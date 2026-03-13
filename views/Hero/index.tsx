@@ -5,7 +5,8 @@ import { useTranslations } from "@/common/context/translation-context";
 import { Download } from "lucide-react";
 
 export function Hero() {
-  const { t } = useTranslations();
+  const { t, lang } = useTranslations();
+  const cvHref = lang === "es" ? "/cv/cv-es.pdf" : "/cv/cv-en.pdf";
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center px-6">
       <div className="animate-fadeUp delay-1 mb-6 inline-flex items-center gap-2 rounded-full border border-border-accent bg-primary-muted px-4 py-1.5 text-sm text-muted">
@@ -29,8 +30,10 @@ export function Hero() {
           {t.hero.cta}
         </Link>
         <a
-          href={t.hero.cvPDF}
-          download
+          href={cvHref}
+          download={
+            lang === "es" ? "CV-Agustina-Romer.pdf" : "Agustina-Romer-CV.pdf"
+          }
           className="flex items-center justify-center gap-2 rounded-xl border border-border px-4 py-2 text-sm text-muted transition-all duration-300 hover:border-border-accent hover:text-primary hover:bg-primary-muted hover:shadow-[0_0_12px_var(--primary-glow)]"
         >
           <Download size={16} />

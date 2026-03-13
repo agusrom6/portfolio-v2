@@ -1,6 +1,7 @@
 'use client'
 import { SkillCard } from "./Components/SkillCard";
 import { useScrollAnimation } from "@/common/hook/Usescrollanimation";
+import { useTranslations } from "@/common/context/translation-context";
 
 export const skills = {
   frontend: [
@@ -33,7 +34,7 @@ export const skills = {
 
 export function Skills() {
   const ref = useScrollAnimation();
-
+  const {t} = useTranslations();
   return (
     <section
       ref={ref}
@@ -41,14 +42,14 @@ export function Skills() {
       id="skills"
     >
       <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground mb-12">
-        Skills & Technologies
+        {t.skills.title}
       </h2>
 
       <div className="grid md:grid-cols-2 gap-8">
-        <SkillCard title="Frontend Development" skills={skills.frontend} />
-        <SkillCard title="Backend Development" skills={skills.backend} />
-        <SkillCard title="Styling & UI" skills={skills.styling} />
-        <SkillCard title="Tools & Workflow" skills={skills.tools} />
+        <SkillCard title={t.skills.frontend} skills={skills.frontend} />
+        <SkillCard title={t.skills.backend} skills={skills.backend} />
+        <SkillCard title={t.skills.styling} skills={skills.styling} />
+        <SkillCard title={t.skills.tools} skills={skills.tools} />
       </div>
     </section>
   );

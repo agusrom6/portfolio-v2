@@ -1,20 +1,21 @@
-'use client'
+"use client";
 import { useScrollAnimation } from "@/common/hook/Usescrollanimation";
 import { ProjectCard } from "./Cards";
 import { dataProjects } from "./dataProjects";
+import { useTranslations } from "@/common/context/translation-context";
 
 export function Projects() {
   const ref = useScrollAnimation();
-
+  const { t } = useTranslations();
   return (
     <div ref={ref} className="scroll-section scroll-mt-20 px-12" id="projects">
       <div className="flex flex-col items-center text-center mb-16">
         <h2 className="animate-fadeUp delay-2 font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground mb-4">
-          Projects
+          {t.projects.title}
         </h2>
 
         <p className="animate-fadeUp delay-3 text-muted text-base sm:text-lg max-w-lg leading-relaxed">
-          A selection of projects that best represent how I design and build interfaces.
+          {t.projects.description}
         </p>
       </div>
 
