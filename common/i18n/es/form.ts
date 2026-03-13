@@ -1,13 +1,8 @@
 export const form = {
-  name: "Nombre",
-  email: "Email",
-  message: "Mensaje",
-  send: "Enviar mensaje",
-
-  errors: {
-    required: "Este campo es obligatorio",
+   errors: {
+    nameRequired: "Ingresá tu nombre",
     invalidEmail: "Ingresá un email válido",
-    minMessage: "El mensaje debe tener al menos 10 caracteres",
+    messageShort: "El mensaje es demasiado corto",
   },
 
   success: "Mensaje enviado correctamente",

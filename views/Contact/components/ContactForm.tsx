@@ -3,40 +3,53 @@
 import { useState } from "react";
 import { contactSchema } from "@/common/lib/contact-schema";
 import { useTranslations } from "@/common/context/translation-context";
+import type { ContactFormData } from "@/common/lib/contact-schema";
 
 export function ContactForm() {
-  const [form, setForm] = useState({
+  const { t } = useTranslations();
+  const schema = contactSchema(t);
+
+  const [form, setForm] = useState<ContactFormData>({
     name: "",
     email: "",
     message: "",
   });
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof ContactFormData, string>>
+  >({});
+
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { t } = useTranslations();
-
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) =>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+
     setForm((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const result = contactSchema.safeParse(form);
+    const result = schema.safeParse(form);
 
     if (!result.success) {
       const fieldErrors = result.error.flatten().fieldErrors;
 
       setErrors({
-        name: fieldErrors.name?.[0] || "",
-        email: fieldErrors.email?.[0] || "",
-        message: fieldErrors.message?.[0] || "",
+        name: fieldErrors.name?.[0],
+        email: fieldErrors.email?.[0],
+        message: fieldErrors.message?.[0],
       });
 
       return;
@@ -110,8 +123,8 @@ export function ContactForm() {
         {loading
           ? t.contact.form.sending
           : sent
-            ? t.contact.form.sent
-            : t.contact.form.send}  
+          ? t.contact.form.sent
+          : t.contact.form.send}
       </button>
     </form>
   );
