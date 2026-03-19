@@ -38,49 +38,56 @@ export function ContactForm() {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    const result = schema.safeParse(form);
+  const result = schema.safeParse(form);
 
-    if (!result.success) {
-      const fieldErrors = result.error.flatten().fieldErrors;
+  if (!result.success) {
+    const fieldErrors = result.error.flatten().fieldErrors;
 
-      setErrors({
-        name: fieldErrors.name?.[0],
-        email: fieldErrors.email?.[0],
-        message: fieldErrors.message?.[0],
-      });
+    setErrors({
+      name: fieldErrors.name?.[0],
+      email: fieldErrors.email?.[0],
+      message: fieldErrors.message?.[0],
+    });
 
+    return;
+  }
+
+  setErrors({});
+
+  try {
+    setLoading(true);
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error(data);
       return;
     }
 
-    setErrors({});
-    setLoading(true);
+    setSent(true);
+    setForm({
+      name: "",
+      email: "",
+      message: "",
+    });
 
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-
-      if (res.ok) {
-        setSent(true);
-        setForm({
-          name: "",
-          email: "",
-          message: "",
-        });
-      }
-    } catch (err) {
-      console.error(err);
-    }
-
+  } catch (err) {
+    console.error(err);
+  } finally {
     setLoading(false);
-  };
+  }
+};
 
   return (
     <form onSubmit={handleSubmit} className="card p-7 flex flex-col gap-5">

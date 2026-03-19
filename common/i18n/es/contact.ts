@@ -14,6 +14,11 @@ export const contact = {
     send: "Enviar mensaje",
     sending: "Enviando...",
     sent: "Mensaje enviado ✓",
+
+    nameError: "El nombre debe tener al menos 2 caracteres",
+    emailRequired: "El email es obligatorio",
+    emailError: "Email inválido",
+    messageError: "El mensaje debe tener al menos 10 caracteres",
   },
 
   info: {
