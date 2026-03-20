@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { LanguageSwitch } from "../LanguageSwitch";
-import { navLinks } from "@/common/navigation/nav-links";
+import { navLinks } from "@/common/layout/nav-links";
 import { useTranslations } from "@/common/context/translation-context";
 
 export function Navbar() {
