@@ -15,7 +15,7 @@ export const dataProjects: Project[] = [
     description:
       "Corporate landing page built with React and TypeScript, optimized for performance and SEO.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    image: "infraccionesCentro.png",
+    image: "projects/infraccionesCentro.png",
     demoLink: "https://infraccionescentro.com",
   },
   {
@@ -24,7 +24,7 @@ export const dataProjects: Project[] = [
     description:
       "Website for a local café featuring an interactive menu, modern design, and mobile optimization.",
     stack: ["TypeScript", "React", "Tailwind CSS"],
-    image: "urbanCafe.png",
+    image: "projects/urbanCafe.png",
     codeLink: "https://github.com/agusrom6/UrbanCafe.git",
     demoLink: "https://urban-cafe.vercel.app/",
   },
@@ -34,7 +34,7 @@ export const dataProjects: Project[] = [
     description:
       "Web application that consumes the Pokémon API to display detailed information about each creature.",
     stack: ["React", "Tailwind CSS", "REST API"],
-    image: "pokedex.png",
+    image: "projects/pokedex.png",
     codeLink: "https://github.com/agusrom6/pokedex",
     demoLink: "https://pokedex-pink-eta-26.vercel.app/",
   },
