@@ -5,18 +5,18 @@ export const projects = {
 
   live: "Ver demo",
   code: "Código",
-  items: {
-    1: {
+  items: [
+    {
       description:
-        "Landing page corporativa construida con React y TypeScript, optimizada para performance y SEO.",
+        "Plataforma web para la consulta de infracciones de tránsito, enfocada en simplificar la búsqueda de información con una interfaz clara, rápida y responsive.",
     },
-    2: {
+    {
       description:
-        "Sitio para una cafetería local con menú interactivo, diseño moderno y optimización mobile.",
+        "Landing page para una cafetería, centrada en identidad visual, diseño moderno y experiencia de usuario atractiva en dispositivos móviles.",
     },
-    3: {
+    {
       description:
-        "Aplicación web que consume la API de Pokémon para mostrar información detallada de cada criatura.",
+        "Aplicación web que consume la API de Pokémon para explorar, buscar y visualizar información en tiempo real con renderizado dinámico.",
     },
-  },
+  ],
 };

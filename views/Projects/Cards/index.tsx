@@ -2,19 +2,20 @@
 
 import { LaptopMinimal, Link } from "lucide-react";
 import { useTranslations } from "@/common/context/translation-context";
+import { Project } from "@/common/types/project";
 
-interface Project {
-  name: string;
-  description: string;
-  image: string;
-  stack: string[];
-  demoLink?: string;
-  codeLink?: string;
-}
+// interface Project {
+//   name: string;
+//   description: string;
+//   image: string;
+//   stack: string[];
+//   demoLink?: string;
+//   codeLink?: string;
+// }
 
 interface ProjectCardProps {
   project: Project;
-  description?: string;
+  description: string;
 }
 
 export function ProjectCard({ project, description }: ProjectCardProps) {
@@ -39,7 +40,7 @@ export function ProjectCard({ project, description }: ProjectCardProps) {
         </h3>
 
         <p className="text-muted text-sm leading-relaxed mb-4 font-light">
-          {t.projects.description}
+          {description}
         </p>
 
         <div className="flex flex-wrap gap-2 mb-5">

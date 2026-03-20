@@ -7,6 +7,7 @@ import { useTranslations } from "@/common/context/translation-context";
 export function Projects() {
   const ref = useScrollAnimation();
   const { t } = useTranslations();
+
   return (
     <div ref={ref} className="scroll-section scroll-mt-20 px-12" id="projects">
       <div className="flex flex-col items-center text-center mb-16">
@@ -20,16 +21,20 @@ export function Projects() {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {dataProjects.map((project, i) => (
-          <div
-            key={project.id}
-            className="animate-fadeUp"
-            style={{ animationDelay: `${0.1 + i * 0.1}s` }}
-          >
-            <ProjectCard project={project} />
-          </div>
-        ))}
-      </div>
+  {dataProjects.map((project, i) => (
+    <div
+      key={project.id}
+      className="animate-fadeUp"
+      style={{ animationDelay: `${0.1 + i * 0.1}s` }}
+    >
+      <ProjectCard
+        key={project.id}
+        project={project}
+        description={t.projects.items[i].description}
+      />
+    </div>
+  ))}
+</div>
     </div>
   );
 }

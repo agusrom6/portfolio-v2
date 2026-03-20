@@ -1,19 +1,10 @@
-export type Project = {
-  id: number;
-  name: string;
-  description: string;
-  stack: string[];
-  image: string;
-  codeLink?: string;
-  demoLink?: string;
-};
+import {Project} from "@/common/types/project"
+
 
 export const dataProjects: Project[] = [
   {
     id: 1,
     name: "Infracciones Centro",
-    description:
-      "Corporate landing page built with React and TypeScript, optimized for performance and SEO.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     image: "projects/infraccionesCentro.png",
     demoLink: "https://infraccionescentro.com",
@@ -21,8 +12,6 @@ export const dataProjects: Project[] = [
   {
     id: 2,
     name: "Urban Café",
-    description:
-      "Website for a local café featuring an interactive menu, modern design, and mobile optimization.",
     stack: ["TypeScript", "React", "Tailwind CSS"],
     image: "projects/urbanCafe.png",
     codeLink: "https://github.com/agusrom6/UrbanCafe.git",
@@ -31,8 +20,6 @@ export const dataProjects: Project[] = [
   {
     id: 3,
     name: "Pokedex",
-    description:
-      "Web application that consumes the Pokémon API to display detailed information about each creature.",
     stack: ["React", "Tailwind CSS", "REST API"],
     image: "projects/pokedex.png",
     codeLink: "https://github.com/agusrom6/pokedex",
