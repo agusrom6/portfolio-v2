@@ -9,7 +9,7 @@ export function AboutImage() {
         <div className="absolute inset-0 -z-10 rounded-3xl bg-violet-600/20 blur-[80px] scale-110" />
 
         <Image
-          src="/about.png"
+          src="about/about.png"
           alt="Agustina Romer"
           width={320}
           height={320}
