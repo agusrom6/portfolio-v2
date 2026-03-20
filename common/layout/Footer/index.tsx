@@ -1,40 +1,34 @@
+"use client";
 import Link from "next/link";
 import { socials } from "@/common/data/social";
-
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
-];
+import { useTranslations } from "@/common/context/translation-context";
 
 export function Footer() {
+  const { t } = useTranslations();
+
+  const navLinks = [
+    { label: t.footer.navigation.home, href: "/" },
+    { label: t.footer.navigation.projects, href: "#projects" },
+    { label: t.footer.navigation.contact, href: "#contact" },
+  ];
   return (
     <footer className="relative w-full border-t border-border overflow-hidden">
-      
-      {/* Ambient glow */}
       <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-125 h-40 rounded-full bg-primary-glow blur-[80px] -z-10" />
 
       <div className="max-w-5xl mx-auto px-6 sm:px-10 py-14 flex flex-col gap-10">
-        
-        {/* Top */}
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-10">
-          
-          {/* Brand */}
           <div className="flex flex-col gap-3 max-w-xs">
             <span className="font-display text-2xl font-black text-gradient leading-none">
               ⦮ ⦯
             </span>
 
             <p className="text-sm text-muted leading-relaxed">
-              Frontend developer focused on building modern,
-              accessible interfaces with great user experience.
+              {t.footer.description}
             </p>
           </div>
-
-          {/* Navigation */}
           <div className="flex flex-col gap-2">
             <p className="text-xs uppercase tracking-widest text-muted-subtle mb-1">
-              Navigation
+              {t.footer.navigation.title}
             </p>
 
             {navLinks.map(({ label, href }) => (
@@ -71,18 +65,12 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="h-px bg-linear-to-r from-transparent via-border-accent to-transparent" />
 
-        {/* Bottom */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-subtle">
           <p>© {new Date().getFullYear()} Agustina Romer</p>
 
-          <p className="flex items-center gap-1.5">
-            Built with
-            <span className="text-primary">♥</span>
-            and lots of coffee
-          </p>
+          <p className="flex items-center gap-1.5">{t.footer.builtWith}</p>
         </div>
       </div>
     </footer>

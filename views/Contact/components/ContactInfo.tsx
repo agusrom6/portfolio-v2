@@ -1,15 +1,17 @@
-export const services = [
-  "Web Development",
-  "Technical Consulting",
-  "Talks & Workshops",
-];
+
+import { useTranslations } from "@/common/context/translation-context";
 
 export function ContactInfo() {
+  const { t } = useTranslations();
+  const services = [
+    t.contact.services.web,
+    t.contact.services.consulting,
+    t.contact.services.talks,
+  ];
   return (
     <div className="card p-7 flex flex-col gap-5">
       <p className="text-sm text-muted leading-relaxed">
-        I'm always open to discussing new opportunities,
-        creative projects, or collaborations.
+        {t.contact.info.text}
       </p>
 
       <div className="h-px bg-linear-to-r from-violet-700/40 via-violet-500/20 to-transparent" />

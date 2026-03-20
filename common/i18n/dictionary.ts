@@ -1,31 +1,10 @@
-import type { NavLinkKey } from "@/common/navigation/nav-links";
+import { en } from "./en";
+import { es } from "./es";
 
-type Nav = Record<NavLinkKey, string> & {
-  openMenu: string;
-  closeMenu: string;
+export const dictionary = {
+  en,
+  es,
 };
 
-type Dictionary = {
-  nav: Nav;
-};
-
-export const dictionary: Record<"en" | "es", Dictionary> = {
-  en: {
-    nav: {
-      home: "Home",
-      projects: "Projects",
-      contact: "Contact",
-      openMenu: "Open menu",
-      closeMenu: "Close menu",
-    },
-  },
-  es: {
-    nav: {
-      home: "Inicio",
-      projects: "Proyectos",
-      contact: "Contacto",
-      openMenu: "Abrir menú",
-      closeMenu: "Cerrar menú",
-    },
-  },
-};
+export type Locale = keyof typeof dictionary;
+export type Dictionary = typeof dictionary.en;

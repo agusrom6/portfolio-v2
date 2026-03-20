@@ -1,24 +1,27 @@
 import { NextResponse } from "next/server";
-import { contactSchema } from "@/common/lib/contact-schema";
+import { contactSchemaBase } from "@/common/lib/contact-schema";
 import { transporter } from "@/common/lib/mail";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    if (body.company) {
+      return NextResponse.json({ success: true });
+    }
 
-    const parsed = contactSchema.safeParse(body);
+    const parsed = contactSchemaBase.safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
         { error: parsed.error.flatten() },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     const { name, email, message } = parsed.data;
 
     await transporter.sendMail({
-      from: `"Portfolio Contact" <${process.env.BREVO_SMTP_USER}>`,
+      from: `"Portfolio Contact" <agustinaromer6@gmail.com>`,
       to: process.env.CONTACT_EMAIL,
       subject: "Nuevo mensaje del portfolio",
       html: `
@@ -30,11 +33,9 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true });
-
   } catch (error) {
-    return NextResponse.json(
-      { error: "Server error" },
-      { status: 500 }
-    );
+    console.error("MAIL ERROR:", error);
+
+    return NextResponse.json({ error: String(error) }, { status: 500 });
   }
 }

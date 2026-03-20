@@ -1,4 +1,7 @@
+"use client";
+
 import { LaptopMinimal, Link } from "lucide-react";
+import { useTranslations } from "@/common/context/translation-context";
 
 interface Project {
   name: string;
@@ -11,12 +14,14 @@ interface Project {
 
 interface ProjectCardProps {
   project: Project;
+  description?: string;
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, description }: ProjectCardProps) {
+  const { t } = useTranslations();
+
   return (
     <div className="group relative flex flex-col h-full rounded-lg overflow-hidden border border-border bg-surface transition-all duration-300 hover:border-primary hover:shadow-(--card-shadow-hover)">
-
       <div className="pointer-events-none absolute inset-0 bg-(--gradient-surface) z-0" />
 
       <div className="relative overflow-hidden">
@@ -34,7 +39,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </h3>
 
         <p className="text-muted text-sm leading-relaxed mb-4 font-light">
-          {project.description}
+          {t.projects.description}
         </p>
 
         <div className="flex flex-wrap gap-2 mb-5">
@@ -59,7 +64,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               className="flex items-center gap-1.5 text-sm text-muted hover:text-primary transition-colors"
             >
               <LaptopMinimal size={15} />
-              <span>Live Demo</span>
+              <span>{t.projects.live}</span>
             </a>
           )}
 
@@ -71,7 +76,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               className="flex items-center gap-1.5 text-sm text-muted hover:text-primary transition-colors"
             >
               <Link size={15} />
-              <span>Source Code</span>
+              <span>{t.projects.code}</span>
             </a>
           )}
         </div>
